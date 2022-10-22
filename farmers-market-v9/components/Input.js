@@ -1,9 +1,19 @@
+import { db, storage } from "../firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "@firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import {useRef, useState} from 'react';
 import{CalendarIcon,
     ChartBarIcon,
     EmojiHappyIcon,
     PhotographIcon,
     XIcon,} from "@heroicons/react/outline";
+
     // const Picker = dynamic(() => import("emoji-picker-react"), { ssr: false });
     //import 'emoji-mart/css/emoji-mart.css';
     import Picker from '@emoji-mart/react'
@@ -23,10 +33,10 @@ function Input() {
         setLoading(true);
     
         const docRef = await addDoc(collection(db, "posts"), {
-          id: session.user.uid,
-          username: session.user.name,
-          userImg: session.user.image,
-          tag: session.user.tag,
+          //id: session.user.uid,
+          //username: session.user.name,
+          //userImg: session.user.image,
+          //tag: session.user.tag,
           text: input,
           timestamp: serverTimestamp(),
         });
@@ -128,7 +138,7 @@ function Input() {
               <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
                 <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
               </div>
-              
+
               <div className="icon">
                 <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
               </div>
