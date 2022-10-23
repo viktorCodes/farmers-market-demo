@@ -41,7 +41,7 @@ function Sidebar() {
         //onClick={signOut}
       >
         <img
-          src="C:\Users\VICTOR\farmers-market-v9\farmers-market-v9\public\logo144.png"           //{session.user.image}
+          src={session.user.image}
           alt=""
           className="h-10 w-10 rounded-full xl:mr-2.5"
         />

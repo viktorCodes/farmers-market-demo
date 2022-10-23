@@ -68,13 +68,25 @@ function Input() {
           setSelectedFile(readerEvent.target.result);
         };
       };
+
+      function Picker(props = {}) {
+        const ref = useRef();
+      
+        useEffect(() => {
+          import("emoji-mart").then((EmojiMart) => {
+            new EmojiMart.Picker({ ...props, data, ref });
+          });
+        }, []);
+      
+        return <div ref={ref}></div>;
+      }
     
     const addEmoji = (e) => {
     let sym = e.unified.split("-");
     let codesArray = [];
     sym.forEach((el) => codesArray.push("0x" + el));
     let emoji = String.fromCodePoint(...codesArray);
-    setInput(input + emoji);
+    setInput(input + emoji.native);
   };
 
   return (
