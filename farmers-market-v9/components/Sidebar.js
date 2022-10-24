@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 import { HomeIcon } from "@heroicons/react/solid";
 import {
   HashtagIcon,
@@ -11,18 +11,18 @@ import {
   DotsHorizontalIcon,
 } from "@heroicons/react/outline";
 import SidebarLink from "./SidebarLink";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 function Sidebar() {
+  const { data: session } = useSession();
+
   return (
-    <div className="hidden sm:flex flex-col items-center xl:items-start xl: w-[340px]p-2 fixed h-full"  >
-
-        <div className="flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24">
-                     {/*put logo */}
+    <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
+      <div className="flex items-center justify-center p-0 w-14 h-14 hoverAnimation xl:ml-24">      {/*logo */}
         <Image src="https://rb.gy/ogau5a" width={30} height={30} />
-        </div>
-
-        <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-24">
-            
+      </div>
+      <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-24">
         <SidebarLink text="Home" Icon={HomeIcon} active />
         <SidebarLink text="Explore" Icon={HashtagIcon} />
         <SidebarLink text="Notifications" Icon={BellIcon} />
@@ -31,31 +31,27 @@ function Sidebar() {
         <SidebarLink text="Lists" Icon={ClipboardListIcon} />
         <SidebarLink text="Profile" Icon={UserIcon} />
         <SidebarLink text="More" Icon={DotsCircleHorizontalIcon} />
-        </div>
-
-        <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[56px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+      </div>
+      <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
         Tweet
       </button>
       <div
         className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAnimation xl:ml-auto xl:-mr-5"
-        //onClick={signOut}
+        onClick={signOut}
       >
         <img
           src={session.user.image}
           alt=""
           className="h-10 w-10 rounded-full xl:mr-2.5"
         />
-        <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold">firebase 185</h4> 
-          <p className="text-[#6e767d]">@firebase185</p> 
+        <div className="hidden leading-5 xl:inline">
+          <h4 className="font-bold">{session.user.name}</h4>
+          <p className="text-[#6e767d]">@{session.user.tag}</p>
         </div>
-        <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
+        <DotsHorizontalIcon className="hidden h-5 ml-10 xl:inline" />
       </div>
-        
     </div>
-
-    
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
