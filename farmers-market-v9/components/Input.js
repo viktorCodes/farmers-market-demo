@@ -15,6 +15,7 @@ import{CalendarIcon,
     XIcon,} from "@heroicons/react/outline";
     import Picker from '@emoji-mart/react';
     import data from '@emoji-mart/data';
+    import { useSession } from "next-auth/react";
    
 
 function Input() {
@@ -24,16 +25,17 @@ function Input() {
     const filePickerRef = useRef(null);
     const [loading, setLoading] = useState(false);
     const [showEmojis, setShowEmojis] = useState(false);
+    const { data: session } = useSession();
 
     const sendPost = async () => {
         if (loading) return;
         setLoading(true);
     
         const docRef = await addDoc(collection(db, "posts"), {
-          //id: session.user.uid,
-          //username: session.user.name,
-          //userImg: session.user.image,
-          //tag: session.user.tag,
+          id: session.user.uid,
+          username: session.user.name,
+          userImg: session.user.image,
+          tag: session.user.tag,
           text: input,
           timestamp: serverTimestamp(),
         });
@@ -93,7 +95,7 @@ function Input() {
       }`}
     >
       <img
-        //src={session.user.image}
+        src={session.user.image}
         alt=""
         className="rounded-full cursor-pointer h-11 w-11"
         //onClick={signOut}
