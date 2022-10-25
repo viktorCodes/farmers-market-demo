@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Feed from '../components/Feed'
 import Sidebar from '../components/Sidebar'
+import Modal from '../components/Modal'
 import { getProviders, getSession, useSession } from "next-auth/react";
 import Login from '../components/Login'
 import { modalState } from "../atoms/modalAtom";
@@ -34,7 +35,7 @@ export default function Home({trendingResults, followResults, providers}) {
               
               
               {/*Modal */}
-
+          <Modal />
     </main>
       
     </div>
